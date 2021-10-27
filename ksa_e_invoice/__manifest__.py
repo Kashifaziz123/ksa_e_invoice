@@ -11,7 +11,7 @@
     "author": "Alhaditech",
     "website": "www.alhaditech.com",
         'license': 'AGPL-3',
-    'images': ['static/description/background.png','static/description/background2.png'],
+    'images': ['static/description/background.jpeg','static/description/background2.png'],
     "depends": [
         'base','sale','doctor','point_of_sale'
     ],
