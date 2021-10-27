@@ -15,7 +15,7 @@
     "depends": [
         'base','sale','doctor','point_of_sale'
     ],
-    'price': 65, 'currency': 'EUR',
+    'price': 50, 'currency': 'EUR',
     'images': ['static/description/background.png'],
     "depends": [
         'base', 'point_of_sale'
