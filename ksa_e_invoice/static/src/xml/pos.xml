@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-extend="OrderReceipt">
-<!--        <t t-jquery="t[t-if='!isTaxIncluded']" t-operation="replace"/>-->
-        <t t-jquery="t[t-if='!taxincluded']" t-operation="replace"/>
-        <t t-jquery="t[t-if='taxincluded']" t-operation="replace"/>
-<!--        <t t-jquery="t[t-if='receipt.total_discount']" t-operation="replace"/>-->
-<!--        <t t-jquery="t[t-if='isTaxIncluded']" t-operation="replace"/>-->
-        <t t-jquery="div.pos-receipt-amount" t-operation="replace"/>
-        <t t-jquery="div.pos-receipt-right-align" t-operation="replace"/>
-        <t t-jquery="t[t-foreach='paymentlines']" t-operation="replace"/>
-<!--        <t t-jquery="div.pos-receipt-amount receipt-change" t-operation="replace"/>-->
-        <t t-jquery="t[t-if='receipt.total_discount']" t-operation="replace"/>
-<!--        <t t-jquery="t[t-if='taxincluded']" t-operation="replace"/>-->
-        <t t-jquery="div.before-footer" t-operation="replace"/>
-<!--        <t t-jquery="t[t-if='receipt.footer_html']" t-operation="replace"/>-->
-<!--        <t t-jquery="t[t-if='!receipt.footer_html and receipt.footer']" t-operation="replace"/>-->
-        <t t-jquery="div.after-footer" t-operation="replace"/>
-        <t t-jquery="div.pos-receipt-order-data" t-operation="replace"/>
-<!--        <t t-jquery="div.pos-receipt-change" t-operation="replace"/>-->
-
-        <t t-jquery="div.pos-receipt-contact" t-operation="replace">
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-if='!isTaxIncluded']" position="replace"/>
+        <xpath expr="//t[@t-if='isTaxIncluded']" position="replace"/>
+        <xpath expr="//t[@t-if='receipt.total_discount']" position="replace"/>
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="replace"/>
+        <xpath expr="//t[@t-foreach='receipt.paymentlines']" position="replace"/>
+        <xpath expr="//div[hasclass('pos-receipt-right-align')]" position="replace"/>
+        <xpath expr="//div[hasclass('receipt-change')]" position="replace"/>
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="replace"/>
+        <xpath expr="//t[@t-if='receipt.cashier']" position="replace">
+            <div class="cashier">
+                <div>--------------------------------</div>
+                <div>Served by <t t-esc="receipt.cashier" /></div>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="replace">
             <div class="pos-receipt-contact">
                 <t t-if="receipt.company.contact_address">
                     <div><strong><t t-esc="receipt.company.contact_address"/></strong></div>
                 </t>
-                <t t-if="pos.company.street"><span t-esc="pos.company.street"/>,
+                <t t-if="env.pos.company.street"><span t-esc="env.pos.company.street"/>,
                 </t>
-                <t t-if="pos.company.street2"><span t-esc="pos.company.street2"/>,
+                <t t-if="env.pos.company.street2"><span t-esc="env.pos.company.street2"/>,
                 </t>
-                <t t-if="pos.company.city"><span t-esc="pos.company.city"/>,
+                <t t-if="env.pos.company.city"><span t-esc="env.pos.company.city"/>,
                 </t>
-                <t t-if="pos.company.state_id"><span t-esc="pos.company.state_id"/>.
+                <t t-if="env.pos.company.state_id"><span t-esc="env.pos.company.state_id"/>.
                 </t>
                 <br/>
-                <t t-if="pos.company.phone"><span t-esc="pos.company.phone"/></t>
-                <t t-if="pos.company.name_arabic">
-                    <div style="font-size:18pt;font-weight:bold">
-                        <span t-esc="widget.name_arabic" style="text-size:12pt"/>
-                        <br/>
-                    </div>
-                </t>
-                <div class="cashier" t-if="receipt.cashier">
+                <t t-if="receipt.company.phone"><span t-esc="receipt.company.phone"/></t>
+<!--                <t t-if="receipt.company.name_arabic">-->
+<!--                    <div style="font-size:18pt;font-weight:bold">-->
+<!--                        <span t-esc="widget.name_arabic" style="text-size:12pt"/>-->
+<!--                        <br/>-->
+<!--                    </div>-->
+<!--                </t>-->
+                <div class="cashier">
                     <div>--------------------------------</div>
                     <div>Served by <t t-esc="receipt.cashier" /></div>
                 </div>
@@ -77,10 +73,23 @@
                 </t>
                 <div style="font-weight:bold;padding-bottom:5pt;padding-top:4pt; border-bottom:1pt dashed black;">INVOICE فاتورة</div>
             </div>
-<!--        </xpath>-->
-       </t>
+        </xpath>
+        <xpath expr="//div[hasclass('before-footer')]" position="replace"/>
+        <xpath expr="//div[hasclass('pos-receipt-center-align')]" position="replace"/>
+        <xpath expr="//div[hasclass('pos-receipt-center-align')]" position="replace"/>
+        <xpath expr="//div[hasclass('after-footer')]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
+        <xpath expr="//br[last()]" position="replace"/>
 
-        <t t-jquery="div.orderlines" t-operation="replace">
+        <xpath expr="//div[hasclass('orderlines')]" position="replace">
             <div class="orderlines">
                 <table style="margin-top:-20pt;padding:5pt;font-size:9pt;border-bottom:1pt dashed black;">
                     <colgroup>
@@ -114,22 +123,22 @@
                             رقم الفاتورة
                         </td>
                     </tr>
-                    <tr t-if="pos.get_client()">
+                    <tr t-if="env.pos.get_client()">
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt">Customer</td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-left:3pt">:</td>
                         <td style="text-align:center;vertical-align:bottom;padding-right:5pt;padding-top:3pt;padding-bottom:3pt">
-                            <t t-esc="pos.get_client().name"/>
+                            <t t-esc="env.pos.get_client().name"/>
                         </td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-right:3pt">:</td>
                         <td style="text-align:right;vertical-align:bottom;text-size:7pt;padding-top:3pt;padding-bottom:3pt">
                             اسم العميل
                         </td>
                     </tr>
-                    <tr t-if="pos.get_client() &amp;&amp; pos.get_client().mobile">
+                    <tr t-if="env.pos.get_client() &amp;&amp; env.pos.get_client().mobile">
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt">Mobile</td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-left:3pt">:</td>
                         <td style="text-align:center;vertical-align:bottom;padding-right:5pt;padding-top:3pt;padding-bottom:3pt">
-                            <t t-esc="pos.get_client().mobile"/>
+                            <t t-esc="env.pos.get_client().mobile"/>
                         </td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-right:3pt">:</td>
                         <td style="text-align:right;vertical-align:bottom;text-size:7pt;padding-top:3pt;padding-bottom:3pt">
@@ -140,7 +149,7 @@
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt">Sales Person</td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-left:3pt">:</td>
                         <td style="text-align:center;vertical-align:bottom;padding-right:5pt;padding-top:3pt;padding-bottom:3pt">
-                            <t t-esc="pos.get_cashier().name"/>
+                            <t t-esc="env.pos.get_cashier().name"/>
                         </td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-right:3pt">:</td>
                         <td style="text-align:right;vertical-align:bottom;text-size:7pt;padding-top:3pt;padding-bottom:3pt">
@@ -172,10 +181,10 @@
                     <t t-foreach="orderlines" t-as="orderline" style="margin-top:5pt">
                         <tr>
                         <td style="padding-bottom:3pt;padding-top:2pt;vertical-align:top">
-                            <t t-esc="widget.format_currency(orderline.get_display_price())"/>
+                            <t t-esc="env.pos.format_currency(orderline.get_display_price())"/>
                         </td>
                         <td style="padding-bottom:3pt;padding-top:2pt;vertical-align:top" class="pos-right-align">
-                            <t t-esc="widget.format_currency(orderline.price)"/>
+                            <t t-esc="env.pos.format_currency(orderline.price)"/>
                         </td>
                         <td style="padding-bottom:3pt;padding-top:2pt;vertical-align:top" class="pos-right-align">
                             <t t-esc="orderline.get_quantity_str_with_unit()"/>
@@ -211,7 +220,7 @@
                         <td style="padding-bottom:5pt;padding-top:5pt">TOTAL</td>
                         <td style="padding-bottom:5pt;padding-top:5pt">:</td>
                         <td style="text-align:center;padding-bottom:5pt;padding-top:5pt;padding-right:6pt">
-                            <t t-esc="widget.format_currency(receipt.subtotal)"/>
+                            <t t-esc="env.pos.format_currency(receipt.subtotal)"/>
                         </td>
                         <td style="padding-bottom:5pt;padding-top:5pt">:</td>
                         <td style="text-align:right;padding-bottom:5pt;padding-top:5pt">الاجمالي</td>
@@ -220,7 +229,7 @@
                         <td style="padding-bottom:5pt;padding-top:5pt">VAT</td>
                         <td style="padding-bottom:5pt;padding-top:5pt">:</td>
                         <td style="text-align:center;padding-bottom:5pt;padding-top:5pt;padding-right:6pt">
-                            <span t-esc='widget.format_currency(receipt.total_tax)'/>
+                            <span t-esc='env.pos.format_currency(receipt.total_tax)'/>
                         </td>
                         <td style="padding-bottom:5pt;padding-top:5pt">:</td>
                         <td style="text-align:right;padding-bottom:5pt;padding-top:5pt">قيمة الضريبة</td>
@@ -232,7 +241,7 @@
 <!--                            </td>-->
 <!--                            <td style="padding-bottom:5pt;padding-top:5pt">:</td>-->
 <!--                            <td style="text-align:center;padding-bottom:5pt;padding-top:5pt;padding-right:6pt">-->
-<!--                                <t t-esc="widget.format_currency(taxdetail.amount)"/>-->
+<!--                                <t t-esc="env.pos.format_currency(taxdetail.amount)"/>-->
 <!--                            </td>-->
 <!--                            <td style="padding-bottom:5pt;padding-top:5pt">:</td>-->
 <!--                            <td style="text-align:right;padding-bottom:5pt;padding-top:5pt">ضريبة</td>-->
@@ -243,7 +252,7 @@
                             <td>Discount</td>
                             <td>:</td>
                             <td style="text-align:center;padding-bottom:5pt;padding-top:5pt;padding-right:6pt">
-                                <span  t-esc="widget.format_currency(receipt.total_discount)" class="pos-receipt-center-align"/>
+                                <span  t-esc="env.pos.format_currency(receipt.total_discount)" class="pos-receipt-center-align"/>
                             </td>
                             <td>:</td>
                             <td style="text-align:right">خصم</td>
@@ -253,7 +262,7 @@
                         <td style="padding-bottom:5pt;">NET AMOUNT</td>
                         <td style="padding-bottom:5pt">:</td>
                         <td style="text-align:center;padding-bottom:5pt;padding-top:5pt;padding-right:6pt">
-                            <t t-esc="widget.format_currency(receipt.total_with_tax)"/>
+                            <t t-esc="env.pos.format_currency(receipt.total_with_tax)"/>
                         </td>
                         <td style="padding-bottom:5pt">:</td>
                         <td style="text-align:right;padding-bottom:5pt">الاجمالي شامل الضريبة</td>
@@ -270,65 +279,69 @@
                             </td>
                             <td style="vertical-align:bottom">:</td>
                             <td style="vertical-align:bottom;padding-right:6pt" class="pos-center-align">
-                                <t t-esc="widget.format_currency(line.get_amount())"/>
+                                <t t-esc="env.pos.format_currency(line.get_amount())"/>
                             </td>
                             <td style="vertical-align:bottom">:</td>
                             <td style="text-align:right;vertical-align:bottom">نقدا</td>
                         </tr>
                     </t>
-                    <tr>
-                        <td style="padding-bottom:5pt;">Amount Due</td>
-                        <td style="padding-bottom:5pt">:</td>
-                        <td style="text-align:center;padding-bottom:5pt;padding-top:5pt;padding-right:6pt">
-                            <t t-esc="widget.format_currency(order.get_due())"/>
-                        </td>
-                        <td style="padding-bottom:5pt">:</td>
-                        <td style="text-align:right;padding-bottom:5pt">المبلغ المتبقي</td>
-                    </tr>
-
-                    <tr>
-                        <td style="padding-bottom:5pt">Change</td>
-                        <td style="padding-bottom:5pt">:</td>
-                        <td style="padding-bottom:5pt;padding-right:6pt" class="pos-center-align">
-                            <t t-esc="widget.format_currency(order.get_change())"/>
-                        </td>
-                        <td style="padding-bottom:5pt">:</td>
-                        <td style="padding-bottom:5pt;text-align:right">الباقي</td>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <td style="padding-bottom:5pt">Change</td>-->
+<!--                        <td style="padding-bottom:5pt">:</td>-->
+<!--                        <td style="padding-bottom:5pt;padding-right:6pt" class="pos-center-align">-->
+<!--                            <t t-esc="env.pos.format_currency(receipt.change)"/>-->
+<!--                        </td>-->
+<!--                        <td style="padding-bottom:5pt">:</td>-->
+<!--                        <td style="padding-bottom:5pt;text-align:right">الباقي</td>-->
+<!--                    </tr>-->
                 </table>
-                <br/>
-                <br/>
-                <div id="dynamic_qr_code"></div>
             </div>
-        </t>
 
-        <t t-jquery='.receipt-orderlines' t-operation='before'>
+            <div class="before-footer" />
+            <!-- Footer -->
+            <div t-if="receipt.footer_html"  class="pos-receipt-center-align">
+                <t t-raw="receipt.footer_html" />
+            </div>
+            <div t-if="!receipt.footer_html and receipt.footer"  class="pos-receipt-center-align" style="white-space:pre-line">
+                <br/>
+                <t t-esc="receipt.footer" />
+                <br/>
+                <br/>
+            </div>
+            <div class="after-footer">
+                <t t-foreach="receipt.paymentlines" t-as="line">
+                    <t t-if="line.ticket">
+                        <br />
+                        <div class="pos-payment-terminal-receipt">
+                            <t t-raw="line.ticket" />
+                        </div>
+                    </t>
+                </t>
+            </div>
+            <br/>
+            <div id="dynamic_qr_code"></div>
+
+
+        </xpath>
+
+        <xpath expr="//div[hasclass('orderlines')]" position="after">
             <script type="text/javascript">
 <!--            var qrcode = new QRCode( ID , {    -->
                 var qrcode = new QRCode('dynamic_qr_code' , {
                     width: 200,
-                    height: 200,
+                    height:200,
                     colorDark : "#000000",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
                 });
-                qrcode.makeCode('Company Name: <t t-esc="receipt.company.name"/>' + '<t t-esc="newline"/>' +
-                                'VAT Number: <t t-if="receipt.company.vat" t-esc="receipt.company.vat"/>' + '<t t-esc="newline"/>' +
-                                'Customer Name: <t t-if="pos.get_client()" t-esc="pos.get_client().name"/>' + '<t t-esc="newline"/>' +
-                                'Invoice Number: <t t-esc="receipt.name"/>' + '<t t-esc="newline"/>' +
-                                'VAT Total: <t t-esc="widget.format_currency(receipt.total_tax)"/>' + '<t t-esc="newline"/>' +
-                                'Invoice Total: <t t-esc="widget.format_currency(receipt.total_with_tax)"/>');
+                qrcode.makeCode('Company Name: <t t-esc="receipt.company.name"/>' + '<t t-esc="receipt.newline"/>' +
+                                'VAT Number: <t t-if="receipt.company.vat" t-esc="receipt.company.vat"/>' + '<t t-esc="receipt.newline"/>' +
+                                'Customer Name: <t t-if="env.pos.get_client()" t-esc="env.pos.get_client().name"/>' + '<t t-esc="receipt.newline"/>' +
+                                'Invoice Number: <t t-esc="receipt.name"/>' + '<t t-esc="receipt.newline"/>' +
+                                'VAT Total: <t t-esc="env.pos.format_currency(receipt.total_tax)"/>' + '<t t-esc="receipt.newline"/>' +
+                                'Invoice Total: <t t-esc="env.pos.format_currency(receipt.total_with_tax)"/>');
             </script>
-        </t>
-
-        <t t-jquery="br:last" t-operation="replace"></t>
-        <t t-jquery="br:last" t-operation="replace"></t>
-        <t t-jquery="br:last" t-operation="replace"></t>
-        <t t-jquery="br:last" t-operation="replace"></t>
-        <t t-jquery="br:last" t-operation="replace"></t>
-        <t t-jquery="br:last" t-operation="replace"></t>
-        <t t-jquery="br:last" t-operation="replace"></t>
-        <t t-jquery="br:last" t-operation="replace"></t>
+        </xpath>
     </t>
 
 </templates>
