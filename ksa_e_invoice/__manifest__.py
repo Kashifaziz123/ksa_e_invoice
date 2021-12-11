@@ -3,8 +3,7 @@
     "version": "14.0.0.0.0",
     "category": "",
     'summary': "",
-    'description': "Point of Sale E invoicing Latest""
-    """,
+    'description': "Point of Sale E invoicing Latest",
     "author": "Alhaditech",
     "website": "",
     'license': '',
