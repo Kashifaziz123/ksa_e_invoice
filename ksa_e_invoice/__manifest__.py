@@ -1,5 +1,5 @@
 {
-    "name": "ksa_e_invoice",
+    "name": "KSA E-invoice",
     "version": "13.0.0.0.0",
     "category": "",
     'summary': "",
