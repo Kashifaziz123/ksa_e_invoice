@@ -7,7 +7,7 @@
     "author": "Alhaditech",
     "website": "",
     'license': '',
-    'images': ['static/description/screenshot.png'],
+    'images': ['static/description/background.jpeg'],
     "depends": [
         'base', 'point_of_sale',
     ],
