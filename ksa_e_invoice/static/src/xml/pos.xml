@@ -123,6 +123,17 @@
                             رقم الفاتورة
                         </td>
                     </tr>
+                    <tr>
+                        <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt">Sales Person</td>
+                        <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-left:3pt">:</td>
+                        <td style="text-align:center;vertical-align:bottom;padding-right:5pt;padding-top:3pt;padding-bottom:3pt">
+                            <t t-esc="env.pos.get_cashier().name"/>
+                        </td>
+                        <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-right:3pt">:</td>
+                        <td style="text-align:right;vertical-align:bottom;text-size:7pt;padding-top:3pt;padding-bottom:3pt">
+                            مندوب مبيعات
+                        </td>
+                    </tr>
                     <tr t-if="env.pos.get_client()">
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt">Customer</td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-left:3pt">:</td>
@@ -145,15 +156,15 @@
                             الجوال
                         </td>
                     </tr>
-                    <tr>
-                        <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt">Sales Person</td>
+                    <tr t-if="env.pos.get_client() &amp;&amp; env.pos.get_client().vat">
+                        <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt">Customer vat</td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-left:3pt">:</td>
                         <td style="text-align:center;vertical-align:bottom;padding-right:5pt;padding-top:3pt;padding-bottom:3pt">
-                            <t t-esc="env.pos.get_cashier().name"/>
+                            <t t-esc="env.pos.get_client().vat"/>
                         </td>
                         <td style="vertical-align:bottom;padding-top:3pt;padding-bottom:3pt;padding-right:3pt">:</td>
                         <td style="text-align:right;vertical-align:bottom;text-size:7pt;padding-top:3pt;padding-bottom:3pt">
-                            مندوب مبيعات
+                            الرقم الضريبي للعميل
                         </td>
                     </tr>
                 </table>
@@ -325,21 +336,10 @@
         </xpath>
 
         <xpath expr="//div[hasclass('orderlines')]" position="after">
+            <span id="qr_data" t-esc="receipt.qr_code" style="display: NONE;"/>
             <script type="text/javascript">
-<!--            var qrcode = new QRCode( ID , {    -->
-                var qrcode = new QRCode('dynamic_qr_code' , {
-                    width: 200,
-                    height:200,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
-                });
-                qrcode.makeCode('Company Name: <t t-esc="receipt.company.name"/>' + '<t t-esc="receipt.newline"/>' +
-                                'VAT Number: <t t-if="receipt.company.vat" t-esc="receipt.company.vat"/>' + '<t t-esc="receipt.newline"/>' +
-                                'Customer Name: <t t-if="env.pos.get_client()" t-esc="env.pos.get_client().name"/>' + '<t t-esc="receipt.newline"/>' +
-                                'Invoice Number: <t t-esc="receipt.name"/>' + '<t t-esc="receipt.newline"/>' +
-                                'VAT Total: <t t-esc="env.pos.format_currency(receipt.total_tax)"/>' + '<t t-esc="receipt.newline"/>' +
-                                'Invoice Total: <t t-esc="env.pos.format_currency(receipt.total_with_tax)"/>');
+                var  qrData = document.getElementById("qr_data").innerHTML;
+                new QRCode(document.getElementById("dynamic_qr_code"), {"text": qrData ,width:200, height:200, correctLevel : QRCode.CorrectLevel.H});
             </script>
         </xpath>
     </t>
