@@ -5,7 +5,7 @@
     'summary': "",
     'description': "Point of Sale E invoicing Latest""
     """,
-    "author": "",
+    "author": "Alhaditech",
     "website": "",
     'license': '',
     "depends": [
