@@ -3,7 +3,7 @@
     "version": "14.0.0.0.0",
     "category": "",
     'summary': "",
-    'description': """
+    'description': "Point of Sale E invoicing Latest""
     """,
     "author": "",
     "website": "",
