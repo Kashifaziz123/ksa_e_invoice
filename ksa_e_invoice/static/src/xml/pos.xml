@@ -312,12 +312,16 @@
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
                 });
-                qrcode.makeCode('Company Name: <t t-esc="receipt.company.name"/>' + '<t t-esc="newline"/>' +
-                                'VAT Number: <t t-if="receipt.company.vat" t-esc="receipt.company.vat"/>' + '<t t-esc="newline"/>' +
-                                'Customer Name: <t t-if="pos.get_client()" t-esc="pos.get_client().name"/>' + '<t t-esc="newline"/>' +
-                                'Invoice Number: <t t-esc="receipt.name"/>' + '<t t-esc="newline"/>' +
-                                'VAT Total: <t t-esc="widget.format_currency(receipt.total_tax)"/>' + '<t t-esc="newline"/>' +
-                                'Invoice Total: <t t-esc="widget.format_currency(receipt.total_with_tax)"/>');
+                function lengthInUtf8Bytes(str) {
+                  // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
+                  var m = encodeURIComponent(str).match(/%[89ABab]/g);
+                  return str.length + (m ? m.length : 0);
+                }
+                qrcode.makeCode(Base64.encode('\x01' + String.fromCharCode(Number.parseInt((+lengthInUtf8Bytes('<t t-esc="receipt.company.name"/>').toString()).toString(16), 16)) + '<t t-esc="receipt.company.name"/>' +
+                                              '\x02' + String.fromCharCode(Number.parseInt((+lengthInUtf8Bytes('<t t-if="receipt.company.vat" t-esc="receipt.company.vat"/>').toString()).toString(16), 16)) + '<t t-if="receipt.company.vat" t-esc="receipt.company.vat"/>' +
+                                              '\x03' + String.fromCharCode(Number.parseInt((+lengthInUtf8Bytes('<t t-esc="receipt.date.localestring"/>').toString()).toString(16), 16)) + '<t t-esc="receipt.date.localestring"/>' +
+                                              '\x04' + String.fromCharCode(Number.parseInt((+lengthInUtf8Bytes('<t t-esc="widget.format_currency(receipt.total_with_tax)"/>').toString()).toString(16), 16)) + '<t t-esc="widget.format_currency(receipt.total_with_tax)"/>' +
+                                              '\x05' + String.fromCharCode(Number.parseInt((+lengthInUtf8Bytes('<t t-esc="widget.format_currency(receipt.total_tax)"/>').toString()).toString(16), 16)) + '<t t-esc="widget.format_currency(receipt.total_tax)"/>'));
             </script>
         </t>
 
