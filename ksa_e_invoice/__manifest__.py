@@ -7,7 +7,7 @@
     "author": "Alhaditech",
     "website": "",
     'license': '',
-     'price': 399, 'currency': 'USD',
+     'price': 30, 'currency': 'USD',
     'images': ['static/description/background.jpeg'],
     "depends": [
         'base', 'point_of_sale',
