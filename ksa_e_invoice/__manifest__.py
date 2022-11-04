@@ -1,6 +1,6 @@
 {
     "name": "KSA E-invoice",
-    "version": "14.0.0.0.0",
+    "version": "15.0.0.0.0",
     "category": "",
     'summary': "",
     'description': "Point of Sale E invoicing Latest",
